@@ -1,0 +1,658 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-tertiary: #0f3460;
+  --bg-surface: #1e2a4a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0b0;
+  --text-muted: #6c6c80;
+  --border-color: #2a2a4a;
+  --accent: #5865f2;
+  --accent-hover: #4752c4;
+  --danger: #e74c3c;
+  --warning: #f39c12;
+  --success: #2ecc71;
+  --panel-width: 260px;
+  --toolbar-height: 40px;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* App Shell Layout */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--toolbar-height);
+  padding: 0 12px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.toolbar-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.toolbar-btn {
+  padding: 4px 12px;
+  font-size: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+}
+
+.toolbar-btn:hover {
+  background: var(--accent);
+}
+
+.toolbar-error {
+  font-size: 11px;
+  color: var(--danger);
+  margin-left: 8px;
+}
+
+.export-import-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-panels {
+  display: grid;
+  grid-template-columns: var(--panel-width) 1fr var(--panel-width);
+  flex: 1;
+  overflow: hidden;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.hierarchy-panel {
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+}
+
+.canvas-panel {
+  background: var(--bg-primary);
+  position: relative;
+}
+
+.canvas-panel .panel-content {
+  padding: 0;
+  overflow: hidden;
+}
+
+.properties-panel {
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-color);
+}
+
+/* Left column layout */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.left-column .hierarchy-panel {
+  flex: 1;
+  border-right: none;
+}
+
+/* Node Toolbar */
+.node-toolbar {
+  border-top: 1px solid var(--border-color);
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.node-toolbar-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: grab;
+  user-select: none;
+}
+
+.node-toolbar-item:hover {
+  border-color: var(--accent);
+}
+
+.node-toolbar-icon {
+  font-size: 12px;
+}
+
+.node-toolbar-label {
+  white-space: nowrap;
+}
+
+/* Flow Node Styles */
+.flow-node {
+  min-width: 140px;
+  max-width: 220px;
+  border: 2px solid;
+  border-radius: 6px;
+  background: var(--bg-surface);
+  font-size: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.flow-node-header {
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.flow-node-icon {
+  font-size: 12px;
+}
+
+.flow-node-label {
+  font-size: 10px;
+}
+
+.flow-node-body {
+  padding: 6px 8px;
+}
+
+.flow-node-text {
+  font-size: 11px;
+  color: var(--text-secondary);
+  word-wrap: break-word;
+  max-height: 60px;
+  overflow: hidden;
+}
+
+.flow-node-detail {
+  font-size: 10px;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.annotation-node {
+  border-radius: 4px;
+  padding: 8px 12px;
+  min-width: 100px;
+  border: 1px dashed;
+}
+
+/* Edge Label */
+.edge-label {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* Properties Panel Styles */
+.property-group {
+  margin-bottom: 12px;
+}
+
+.property-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.property-value {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.property-group input[type='text'],
+.property-group input[type='color'],
+.property-group textarea,
+.property-group select {
+  width: 100%;
+  font-size: 12px;
+}
+
+.property-group textarea {
+  resize: vertical;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  font-size: 12px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* React Flow overrides */
+.react-flow__controls {
+  bottom: 10px;
+  right: 10px;
+  left: auto;
+}
+
+.react-flow__controls-button {
+  background: var(--bg-surface) !important;
+  border-color: var(--border-color) !important;
+  fill: var(--text-primary) !important;
+}
+
+/* Pin Controls */
+.pin-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 4px;
+  align-items: center;
+}
+
+.pin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 9px;
+  padding: 1px 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  color: var(--text-secondary);
+}
+
+.pin-remove-btn {
+  font-size: 9px;
+  line-height: 1;
+  padding: 0 2px;
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+}
+
+.pin-add-btn {
+  font-size: 11px;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.pin-add-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Pin expression highlight */
+.react-flow__handle.has-expression {
+  box-shadow: 0 0 0 2px #f5a623;
+}
+
+/* Pin Popover */
+.pin-popover {
+  position: absolute;
+  z-index: 100;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  min-width: 200px;
+}
+
+.pin-popover label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.pin-popover input {
+  width: 100%;
+  font-size: 12px;
+}
+
+/* Edge label editing */
+.edge-label-input {
+  font-size: 10px;
+  padding: 1px 4px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  color: var(--text-primary);
+  outline: none;
+  min-width: 60px;
+}
+
+/* Context Menu */
+.context-menu {
+  position: absolute;
+  z-index: 200;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 4px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  min-width: 160px;
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  width: 100%;
+  text-align: left;
+}
+
+.context-menu-item:hover {
+  background: var(--accent);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.breadcrumb-item {
+  cursor: pointer;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  font: inherit;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.breadcrumb-item:hover {
+  color: var(--accent);
+}
+
+.breadcrumb-separator {
+  color: var(--text-muted);
+}
+
+.breadcrumb-current {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Hierarchy Tree */
+.hierarchy-tree {
+  font-size: 12px;
+}
+
+.tree-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  cursor: pointer;
+  border-radius: 3px;
+  user-select: none;
+}
+
+.tree-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tree-item.active {
+  background: var(--accent);
+}
+
+.tree-children {
+  padding-left: 16px;
+}
+
+.tree-toggle {
+  width: 14px;
+  font-size: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.tree-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.tree-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tree-name-input {
+  flex: 1;
+  font-size: 12px;
+  padding: 1px 4px;
+}
+
+/* Validation Badge */
+.validation-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 11px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--warning);
+}
+
+.validation-list {
+  position: absolute;
+  top: 32px;
+  right: 8px;
+  z-index: 10;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  min-width: 240px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.validation-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 3px;
+  color: var(--text-secondary);
+}
+
+.validation-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Characters Section */
+.character-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.character-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.character-item input {
+  flex: 1;
+  font-size: 12px;
+}
+
+.character-remove-btn {
+  font-size: 10px;
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.character-add-btn {
+  font-size: 11px;
+  padding: 4px 8px;
+  margin-top: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.character-add-btn:hover {
+  border-color: var(--accent);
+}
+
+/* Zoom Controls */
+.zoom-controls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 10;
+  display: flex;
+  gap: 4px;
+}
+
+.zoom-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.zoom-btn:hover {
+  border-color: var(--accent);
+}

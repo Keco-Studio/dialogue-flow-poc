@@ -1,0 +1,602 @@
+{
+  "characters": [
+    {
+      "id": "char-narrator",
+      "name": "Narrator"
+    },
+    {
+      "id": "char-npc",
+      "name": "NPC"
+    },
+    {
+      "id": "char-player",
+      "name": "Player"
+    }
+  ],
+  "createdAt": "2026-02-13T12:00:00.000Z",
+  "graphs": [
+    {
+      "edges": [
+        {
+          "fromPinId": "pin-001-out",
+          "id": "edge-001",
+          "toPinId": "pin-002-in"
+        },
+        {
+          "fromPinId": "pin-002-out",
+          "id": "edge-002",
+          "toPinId": "pin-003-in"
+        },
+        {
+          "fromPinId": "pin-003-out-a",
+          "id": "edge-003",
+          "label": "Ask about quest",
+          "toPinId": "pin-004-in"
+        },
+        {
+          "fromPinId": "pin-003-out-b",
+          "id": "edge-004",
+          "label": "Trade",
+          "toPinId": "pin-007-in"
+        },
+        {
+          "fromPinId": "pin-003-out-c",
+          "id": "edge-005",
+          "label": "Leave",
+          "toPinId": "pin-009-in"
+        },
+        {
+          "fromPinId": "pin-004-out",
+          "id": "edge-006",
+          "toPinId": "pin-005-in"
+        },
+        {
+          "fromPinId": "pin-005-out",
+          "id": "edge-007",
+          "toPinId": "pin-006-in"
+        },
+        {
+          "fromPinId": "pin-006-out",
+          "id": "edge-008",
+          "toPinId": "pin-011-in"
+        },
+        {
+          "fromPinId": "pin-007-out",
+          "id": "edge-009",
+          "toPinId": "pin-008-in"
+        },
+        {
+          "fromPinId": "pin-008-out",
+          "id": "edge-010",
+          "toPinId": "pin-011-in-b"
+        },
+        {
+          "fromPinId": "pin-009-out",
+          "id": "edge-011",
+          "toPinId": "pin-010-in"
+        },
+        {
+          "fromPinId": "pin-011-out",
+          "id": "edge-012",
+          "toPinId": "pin-012-in"
+        },
+        {
+          "fromPinId": "pin-012-out",
+          "id": "edge-013",
+          "toPinId": "pin-013-in"
+        },
+        {
+          "fromPinId": "pin-013-out",
+          "id": "edge-014",
+          "toPinId": "pin-014-in"
+        }
+      ],
+      "id": "graph-main",
+      "name": "Main Dialogue",
+      "nodes": [
+        {
+          "data": {
+            "speakerId": "char-narrator",
+            "text": "The sun sets behind the ancient castle walls as you approach the village square. A weathered merchant catches your eye and beckons you over.",
+            "type": "line"
+          },
+          "id": "node-001",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-001-in",
+              "nodeId": "node-001"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-001-out",
+              "nodeId": "node-001"
+            }
+          ],
+          "position": {
+            "x": 400,
+            "y": 0
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "speakerId": "char-npc",
+            "text": "Ah, a traveler! Welcome to Thornfield. I don't get many visitors these days. What brings you to our humble village?",
+            "type": "line"
+          },
+          "id": "node-002",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-002-in",
+              "nodeId": "node-002"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-002-out",
+              "nodeId": "node-002"
+            }
+          ],
+          "position": {
+            "x": 400,
+            "y": 150
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "prompt": "How do you respond?",
+            "type": "choice"
+          },
+          "id": "node-003",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-003-in",
+              "nodeId": "node-003"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-003-out-a",
+              "name": "Ask about quest",
+              "nodeId": "node-003"
+            },
+            {
+              "direction": "out",
+              "id": "pin-003-out-b",
+              "name": "Trade",
+              "nodeId": "node-003"
+            },
+            {
+              "direction": "out",
+              "id": "pin-003-out-c",
+              "name": "Leave",
+              "nodeId": "node-003"
+            }
+          ],
+          "position": {
+            "x": 400,
+            "y": 300
+          },
+          "type": "choice"
+        },
+        {
+          "data": {
+            "speakerId": "char-npc",
+            "text": "A quest, you say? Well, there have been strange happenings in the old mine to the north. Creatures stirring that haven't been seen in decades.",
+            "type": "line"
+          },
+          "id": "node-004",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-004-in",
+              "nodeId": "node-004"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-004-out",
+              "nodeId": "node-004"
+            }
+          ],
+          "position": {
+            "x": 100,
+            "y": 500
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "expression": "player.questLog.add('investigate_mine'); player.reputation.thornfield += 5",
+            "type": "instruction"
+          },
+          "id": "node-005",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-005-in",
+              "nodeId": "node-005"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-005-out",
+              "nodeId": "node-005"
+            }
+          ],
+          "position": {
+            "x": 100,
+            "y": 650
+          },
+          "type": "instruction"
+        },
+        {
+          "data": {
+            "speakerId": "char-npc",
+            "text": "If you're brave enough to investigate, I'll make it worth your while. Here, take this old map \u2014 it shows the mine entrance.",
+            "type": "line"
+          },
+          "id": "node-006",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-006-in",
+              "nodeId": "node-006"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-006-out",
+              "nodeId": "node-006"
+            }
+          ],
+          "position": {
+            "x": 100,
+            "y": 800
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "speakerId": "char-npc",
+            "text": "Interested in trading, eh? I've got supplies, potions, and a few rare trinkets from my travels. Take a look!",
+            "type": "line"
+          },
+          "id": "node-007",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-007-in",
+              "nodeId": "node-007"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-007-out",
+              "nodeId": "node-007"
+            }
+          ],
+          "position": {
+            "x": 400,
+            "y": 500
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "speakerId": "char-player",
+            "text": "I'll take a healing potion and some rations for the road. How much?",
+            "type": "line"
+          },
+          "id": "node-008",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-008-in",
+              "nodeId": "node-008"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-008-out",
+              "nodeId": "node-008"
+            }
+          ],
+          "position": {
+            "x": 400,
+            "y": 650
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "speakerId": "char-player",
+            "text": "I should get going. Maybe another time.",
+            "type": "line"
+          },
+          "id": "node-009",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-009-in",
+              "nodeId": "node-009"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-009-out",
+              "nodeId": "node-009"
+            }
+          ],
+          "position": {
+            "x": 700,
+            "y": 500
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "targetNodeId": "node-003",
+            "type": "jump"
+          },
+          "id": "node-010",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-010-in",
+              "nodeId": "node-010"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-010-out",
+              "nodeId": "node-010"
+            }
+          ],
+          "position": {
+            "x": 700,
+            "y": 650
+          },
+          "type": "jump"
+        },
+        {
+          "data": {
+            "label": "Converge after choice",
+            "type": "hub"
+          },
+          "id": "node-011",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-011-in",
+              "nodeId": "node-011"
+            },
+            {
+              "direction": "in",
+              "id": "pin-011-in-b",
+              "nodeId": "node-011"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-011-out",
+              "nodeId": "node-011"
+            }
+          ],
+          "position": {
+            "x": 250,
+            "y": 950
+          },
+          "type": "hub"
+        },
+        {
+          "data": {
+            "innerGraphId": "graph-inner",
+            "label": "Inner Scene",
+            "type": "flowFragment"
+          },
+          "id": "node-012",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-012-in",
+              "nodeId": "node-012"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-012-out",
+              "nodeId": "node-012"
+            }
+          ],
+          "position": {
+            "x": 250,
+            "y": 1100
+          },
+          "type": "flowFragment"
+        },
+        {
+          "data": {
+            "speakerId": "char-npc",
+            "text": "Safe travels, friend. May the road treat you well. Come back anytime!",
+            "type": "line"
+          },
+          "id": "node-013",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-013-in",
+              "nodeId": "node-013"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-013-out",
+              "nodeId": "node-013"
+            }
+          ],
+          "position": {
+            "x": 250,
+            "y": 1300
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "type": "end"
+          },
+          "id": "node-014",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-014-in",
+              "nodeId": "node-014"
+            }
+          ],
+          "outputPins": [],
+          "position": {
+            "x": 250,
+            "y": 1450
+          },
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "edges": [
+        {
+          "fromPinId": "pin-i01-out",
+          "id": "edge-i01",
+          "toPinId": "pin-i02-in"
+        },
+        {
+          "fromPinId": "pin-i02-out",
+          "id": "edge-i02",
+          "toPinId": "pin-i03-in"
+        }
+      ],
+      "id": "graph-inner",
+      "name": "Inner Scene",
+      "nodes": [
+        {
+          "data": {
+            "speakerId": "char-narrator",
+            "text": "The merchant reaches beneath the counter and produces a worn leather satchel.",
+            "type": "line"
+          },
+          "id": "node-i01",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-i01-in",
+              "nodeId": "node-i01"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-i01-out",
+              "nodeId": "node-i01"
+            }
+          ],
+          "position": {
+            "x": 200,
+            "y": 0
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "speakerId": "char-npc",
+            "text": "Here \u2014 a little something extra for the road. Consider it a gift between friends.",
+            "type": "line"
+          },
+          "id": "node-i02",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-i02-in",
+              "nodeId": "node-i02"
+            }
+          ],
+          "outputPins": [
+            {
+              "direction": "out",
+              "id": "pin-i02-out",
+              "nodeId": "node-i02"
+            }
+          ],
+          "position": {
+            "x": 200,
+            "y": 150
+          },
+          "type": "line"
+        },
+        {
+          "data": {
+            "type": "end"
+          },
+          "id": "node-i03",
+          "inputPins": [
+            {
+              "direction": "in",
+              "id": "pin-i03-in",
+              "nodeId": "node-i03"
+            }
+          ],
+          "outputPins": [],
+          "position": {
+            "x": 200,
+            "y": 300
+          },
+          "type": "end"
+        }
+      ]
+    }
+  ],
+  "hierarchyRoot": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [],
+              "graphId": "graph-main",
+              "id": "tree-003",
+              "name": "Main Dialogue",
+              "type": "graphRef"
+            }
+          ],
+          "id": "tree-002",
+          "name": "Chapter 1",
+          "type": "chapter"
+        }
+      ],
+      "id": "tree-001",
+      "name": "Demo",
+      "type": "folder"
+    }
+  ],
+  "id": "proj-demo-001",
+  "name": "Demo Project",
+  "schemaVersion": 1,
+  "updatedAt": "2026-02-13T12:00:00.000Z"
+}
