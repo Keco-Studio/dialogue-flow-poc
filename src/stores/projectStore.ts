@@ -1,7 +1,7 @@
 'use client';
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import type { Character, TreeNode, TreeNodeType } from '@/models/types';
 import { generateId } from '@/lib/ids';
 import { idbStorage } from '@/services/persistence';
@@ -222,7 +222,16 @@ export const useProjectStore = create<ProjectStore>()(
     }),
     {
       name: 'project-store',
-      storage: idbStorage as never,
+      storage: createJSONStorage(() => idbStorage),
+      partialize: (state) => ({
+        id: state.id,
+        name: state.name,
+        schemaVersion: state.schemaVersion,
+        createdAt: state.createdAt,
+        updatedAt: state.updatedAt,
+        characters: state.characters,
+        hierarchyRoot: state.hierarchyRoot,
+      }),
     },
   ),
 );
